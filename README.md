@@ -12,4 +12,4 @@ The Pleased Kit is an open-source, user-friendly software/hardware bundle to col
 
 The Pleased Kit is based on the [Labjack EI-1040](http://labjack.com/support/ei-1040/datasheet) dual programmable gain instrumentation amplifier and the [LabJack U6 multifunction DAQ with USB](http://labjack.com/u6). Through the user-friendly GUI written in Python it is possible to setup experiments and to save the acquired data in a reliable. A realtime chart is provided to have a visual perspective of the signal coming from the plant.
 
-More information about installation, experiments setup and data acquisition can be found on our [wiki page](https://github.com/pleasedkit/pleased-kit/wiki).
+More information about installation, experiments setup and data acquisition can be found on our [wiki page](https://github.com/pleasedkit/pleased-kit/wiki). 
