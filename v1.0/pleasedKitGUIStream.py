@@ -56,6 +56,11 @@ imageCanvas.create_image(0,0, image=photo,anchor="nw")
 
 
 
+maxP1=0
+minP1=0
+maxP2=0
+minP2=0
+
 record_file=None
 xAchse=pylab.arange(0,100,1)
 yAchse=pylab.array([0]*100)
@@ -123,18 +128,26 @@ def measure():
 
 
 def writeData():
-    global values,values2,valueCounter
+    global values,values2,valueCounter,maxP1,minP1,maxP2,minP2
     r = measure()
     if r != False:
         chans = [ r['AIN%d' % (n)] for n in range(2) ]
         #print len(chans)
         for i in range(len(chans[0])):
             #valueCounter +=1
+            if(chans[0][i]>maxP1):
+                maxP1=chans[0][i] + 0.02
+            if(chans[0][i]<minP1):
+                minP1=chans[0][i] - 0.02
+            if(chans[0][i]>maxP2):
+                maxP2=chans[0][i] + 0.02
+            if(chans[0][i]<minP2):
+                minP2=chans[0][i] - 0.02
             values.append(chans[0][i])
             values2.append(chans[1][i])
             if writeFila==True:
                 f.write(">" + str(chans[0][i]) + "," + str(chans[1][i]) + "\n")
-    root.after(100,writeData)
+    root.after(300,writeData)
 
 
 
@@ -147,20 +160,20 @@ def IIR2BUTT(o1,o2,i,i1,i2):
 
 
 def plotter():
-    global values,values2,wScale,wScale2,multSamples
-    if(len(values)>60000):
-        del values[0:30000]
-        del values2[0:30000]
+    global values,values2,wScale,wScale2,multSamples,maxP1,minP1,maxP2,minP2
+    if(len(values)>100000):
+        del values[0:(len(values)-100000)]
+        del values2[0:(len(values)-100000)]
         multSamples +=1
-        ax2.set_xlabel("Samples+30000*" + str(multSamples))
+        ax2.set_xlabel("Samples")
     NumberSamples=min(len(values),wScale.get())
     CurrentXAxis=pylab.arange(len(values)-NumberSamples,len(values),1)
     line1[0].set_data(CurrentXAxis,pylab.array(values[-NumberSamples:]))
     line2[0].set_data(CurrentXAxis,pylab.array(values2[-NumberSamples:]))
-    ax.axis([CurrentXAxis.min(),CurrentXAxis.max(),-1,1])
-    ax2.axis([CurrentXAxis.min(),CurrentXAxis.max(),-1,1])
+    ax.axis([CurrentXAxis.min(),CurrentXAxis.max(),maxP1,minP1])
+    ax2.axis([CurrentXAxis.min(),CurrentXAxis.max(),maxP2,minP2])
     canvas.draw()
-    root.after(300,plotter)
+    root.after(800,plotter)
 #canvas.draw()
 
 #manager.show()
@@ -199,7 +212,9 @@ def _record():
     global button,buttonStop,e,b,subroot
     button['state']='disabled'
     subroot = Tkinter.Tk()
-    subroot.wm_title("Insert file name:")
+    subroot.wm_title("Experiment Description:")
+    L1 = Tkinter.Label(master=subroot, text="Insert File Name")
+    L1.pack()
     e = Tkinter.Entry(master=subroot)
     e.pack()
     e.focus_set()
