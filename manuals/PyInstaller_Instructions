@@ -1,0 +1,8 @@
+######### How to build (and run) a PyInstaller package for PleasedKit (on Windows) ###########
+- Download and install python (tested against 2.x)
+- Download and install LabJack drivers (this will also require you to install .Net 2.0+)
+- Download and install scipy-stack and pywin32 from http://www.lfd.uci.edu/~gohlke/pythonlibs/
+- Download and install PyInstaller and LabJackPython (run "python setup.py install" in the respective folders)
+- Go to the PleasedKit directory and run "pyinstaller --noconsole PleasedKit.py"
+- The "dist/PleasedKit" contains all the required files to run the application,
+  just copy it to the destination system and run the "PleasedKit.exe" executable.
