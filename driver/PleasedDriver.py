@@ -4,12 +4,9 @@ import sys
 import threading
 import time
 import u6
-from struct import *
 
 class PleasedDriver:
     started = False
-    correct = 0
-    err = 0
     elect_num = 0
     data = dict()
     t1 = None
@@ -36,9 +33,9 @@ class PleasedDriver:
                 ScanFrequency = 100, #SET THE FREQUENCY OF SAMPLES: 1KHz for each channel
                 #SampleFrequency = None
                 )
-                
+
     def initData(self):
-        d = {"AIN"+str(n): [] for n in range(self.elect_num) } 
+        d = {"AIN"+str(n): [] for n in range(self.elect_num) }
         return d
 
     def acquireData(self):
@@ -51,7 +48,7 @@ class PleasedDriver:
                 self.t1.start();
             except:
                 pass
-            
+
     def do_acquire(self):
         try:
             for r in self.lj.streamData():
@@ -66,7 +63,6 @@ class PleasedDriver:
                     self.lock.release()
         finally:
             pass
-    
 
     def readData(self):
         self.lock.acquire()
