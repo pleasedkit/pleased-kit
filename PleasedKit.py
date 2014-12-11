@@ -3,6 +3,7 @@ import sys
 import pylab
 from driver.PleasedDriver import PleasedDriver
 from pylab import *
+import FileDialog   # needed by PyInstaller
 from Tkinter import *
 import Tkconstants
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
