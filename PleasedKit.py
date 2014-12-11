@@ -327,7 +327,7 @@ wOffset.set(OFFSET)
 if elect_num == 2:
     buttonState = 'disabled'
 else:
-    ButtonState = 'active'
+    buttonState = 'active'
 buttonNext = Button(root, text="Next", state=buttonState, command=_nextFig)
 buttonNext.grid(row=2,column=5, sticky=E)
 
